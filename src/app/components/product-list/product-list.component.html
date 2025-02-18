@@ -7,7 +7,7 @@
         payments
         </span>
      
-      BANCO
+         BANCO
     </h2>
   </div>
 
@@ -39,15 +39,9 @@
       <tbody>
         <tr *ngFor="let product of filteredProducts">
           <td class="logo-cell">
-            <div class="logo-placeholder" *ngIf="!product.logo">
-              {{ product.name.substring(0, 2).toUpperCase() }}
+            <div class="logo-placeholder">
+              JG
             </div>
-            <img 
-              *ngIf="product.logo" 
-              [src]="product.logo" 
-              [alt]="product.name"
-              class="logo-placeholder"
-            >
           </td>
           <td>{{ product.name }}</td>
           <td>{{ product.description }}</td>
@@ -90,7 +84,7 @@
       <hr>
       <div class="modal-actions">
         <button (click)="cancelDelete()">Cancelar</button>
-        <button (click)="deleteProduct()">Eliminar</button>
+        <button (click)="deleteProduct()">Confirmar</button>
       </div>
     </div>
   </div>

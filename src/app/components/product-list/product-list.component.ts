@@ -30,6 +30,7 @@ export class ProductListComponent implements OnInit {
   productNameToDelete: string | null = null;
   fechaRevision: string = '';
   fechaLiberacion: string = ''; // Assuming this is available
+  errorMessage: string | null = null; // Add this property
 
   constructor(
     private productService: ProductService,
@@ -55,6 +56,7 @@ export class ProductListComponent implements OnInit {
         this.loading = false;
       },
       error: (error) => {
+        this.errorMessage = 'Error loading products';
         console.error('Error loading products:', error);
         this.loading = false;
       }
@@ -122,6 +124,7 @@ export class ProductListComponent implements OnInit {
         this.productNameToDelete = null;
       },
       error: (error) => {
+        this.errorMessage = 'Error deleting product';
         console.error('Error deleting product:', error);
         this.showDeleteModal = false;
         this.productIdToDelete = null;
