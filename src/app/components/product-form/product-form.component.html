@@ -1,0 +1,70 @@
+<!-- Encabezado -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+<div class="header-container">
+    <h2 class="title">
+        <span class="material-symbols-outlined">
+            payments
+        </span>
+        BANCO
+    </h2>
+</div>
+
+<div class="form-container">
+    <h2 class="form-title">{{ isEditMode ? 'Editar Producto' : 'Formulario de Registro' }}</h2>
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
+        <div class="form-grid">
+            <!-- ID Field -->
+            <div class="form-group" [ngClass]="{'has-error': productForm.get('id')?.invalid && (productForm.get('id')?.touched || submitted)}">
+                <label for="id">ID</label>
+                <input type="text" id="id" formControlName="id">
+                <div class="error-message" *ngIf="productForm.get('id')?.invalid && (productForm.get('id')?.touched || submitted)">
+                    {{ getErrorMessage('id') }}
+                </div>
+            </div>
+            <!-- Name Field -->
+            <div class="form-group" [ngClass]="{'has-error': productForm.get('name')?.invalid && (productForm.get('name')?.touched || submitted)}">
+                <label for="name">Nombre</label>
+                <input type="text" id="name" formControlName="name">
+                <div class="error-message" *ngIf="productForm.get('name')?.invalid && (productForm.get('name')?.touched || submitted)">
+                    {{ getErrorMessage('name') }}
+                </div>
+            </div>
+            <!-- Description Field -->
+            <div class="form-group" [ngClass]="{'has-error': productForm.get('description')?.invalid && (productForm.get('description')?.touched || submitted)}">
+                <label for="description">Descripción</label>
+                <input type="text" id="description" formControlName="description">
+                <div class="error-message" *ngIf="productForm.get('description')?.invalid && (productForm.get('description')?.touched || submitted)">
+                    {{ getErrorMessage('description') }}
+                </div>
+            </div>
+            <!-- Logo Field -->
+            <div class="form-group" [ngClass]="{'has-error': productForm.get('logo')?.invalid && (productForm.get('logo')?.touched || submitted)}">
+                <label for="logo">Logo</label>
+                <input type="text" id="logo" formControlName="logo">
+                <div class="error-message" *ngIf="productForm.get('logo')?.invalid && (productForm.get('logo')?.touched || submitted)">
+                    {{ getErrorMessage('logo') }}
+                </div>
+            </div>
+            <!-- Date Release Field -->
+            <div class="form-group" [ngClass]="{'has-error': productForm.get('date_release')?.invalid && (productForm.get('date_release')?.touched || submitted)}">
+                <label for="date_release">Fecha de Liberación</label>
+                <input type="date" id="date_release" formControlName="date_release">
+                <div class="error-message" *ngIf="productForm.get('date_release')?.invalid && (productForm.get('date_release')?.touched || submitted)">
+                    {{ getErrorMessage('date_release') }}
+                </div>
+            </div>
+            <!-- Date Revision Field -->
+            <div class="form-group" [ngClass]="{'has-error': productForm.get('date_revision')?.invalid && (productForm.get('date_revision')?.touched || submitted)}">
+                <label for="date_revision">Fecha de Revisión</label>
+                <input type="date" id="date_revision" formControlName="date_revision" [attr.disabled]="true">
+                <div class="error-message" *ngIf="productForm.get('date_revision')?.invalid && (productForm.get('date_revision')?.touched || submitted)">
+                    {{ getErrorMessage('date_revision') }}
+                </div>
+            </div>
+        </div>
+        <div class="button-group">
+            <button type="button" (click)="onReset()">Reiniciar</button>
+            <button type="submit" [disabled]="loading">{{ isEditMode ? 'Actualizar' : 'Agregar' }}</button>
+        </div>
+    </form>
+</div>

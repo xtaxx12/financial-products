@@ -1,0 +1,97 @@
+<div class="product-list-container">
+  <!-- Encabezado -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <div class="header-container">
+    <h2 class="title">
+      <span class="material-symbols-outlined">
+        payments
+        </span>
+     
+      BANCO
+    </h2>
+  </div>
+
+  <!-- Barra de búsqueda y botón Agregar -->
+  <div class="top-bar">
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Search..."
+      [value]="searchTerm"
+      (input)="onSearch($event)"
+    >
+    <button class="add-button" (click)="onAddProduct()">Agregar</button>
+  </div>
+
+  <!-- Tabla de Productos -->
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Logo</th>
+          <th>Nombre del producto</th>
+          <th>Descripción <span class="info-icon">ⓘ</span></th>
+          <th>Fecha de liberación <span class="info-icon">ⓘ</span></th>
+          <th>Fecha de reestructuración <span class="info-icon">ⓘ</span></th>
+          <th></th> <!-- Para los 3 puntitos -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of filteredProducts">
+          <td class="logo-cell">
+            <div class="logo-placeholder" *ngIf="!product.logo">
+              {{ product.name.substring(0, 2).toUpperCase() }}
+            </div>
+            <img 
+              *ngIf="product.logo" 
+              [src]="product.logo" 
+              [alt]="product.name"
+              class="logo-placeholder"
+            >
+          </td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ formatDate(product.date_release) }}</td>
+          <td>{{ formatDate(product.date_revision) }}</td>
+          <td class="actions-cell">
+            <button class="actions-button" (click)="toggleDropdown(product.id)">
+              &#x22EE;
+            </button>
+            <div *ngIf="showDropdown === product.id" class="actions-menu">
+              <button (click)="onEdit(product.id)">Editar</button>
+              <button (click)="confirmDelete(product.id, product.name)">Eliminar</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Control de Resultados -->
+  <div class="results-container">
+    <span class="results-count">
+      {{ filteredProducts.length }} Resultados
+    </span>
+    <select 
+      class="page-size-select"
+      [value]="pageSize"
+      (change)="onPageSizeChange($event)"
+    >
+      <option *ngFor="let size of pageSizeOptions" [value]="size">
+        {{ size }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="modal" *ngIf="showDeleteModal">
+    <div class="modal-content">
+      <p>¿Estás seguro de que deseas eliminar el producto <strong>{{ productNameToDelete }}</strong>?</p>
+      <hr>
+      <div class="modal-actions">
+        <button (click)="cancelDelete()">Cancelar</button>
+        <button (click)="deleteProduct()">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
